@@ -68,7 +68,7 @@ function main() {
 
   cd ${TMPDIR}
 
-  num_steps=7
+  num_steps=8
 
   ciop-log "INFO" "(1 of ${num_steps}) Resolve RS2 master online resource"
   online_resource="$( opensearch-client ${master} enclosure )"
@@ -78,18 +78,17 @@ function main() {
   local_master="$( ciop-copy -U -o ${TMPDIR} ${online_resource} )"
   [[ -z ${local_master} ]] && return ${ERR_NO_MASTER} 
 
-  ciop-log "INFO" "(3 of ${num_steps}) Retrieve slave"
- 
-  ciop-log "INFO" "Retrieve ${slave}"
+  ciop-log "INFO" "(3 of ${num_steps}) Resolve RS2 slave online resource"
   online_resource="$( opensearch-client ${slave} enclosure )"
   [[ -z ${online_resource} ]] && return ${ERR_NO_URL}
 
+  ciop-log "INFO" "(4 of ${num_steps}) Retrieve RS2 slave product from ${online_resource}"
   local_slave="$( ciop-copy -U -o ${TMPDIR} ${online_resource} )"
   [[ -z ${local_slave} ]] && return ${ERR_NO_SLAVE}
  
   out=${local_master}_result
 
-  ciop-log "INFO" "(4 of ${num_steps}) Invoke SNAP GPT"
+  ciop-log "INFO" "(5 of ${num_steps}) Invoke SNAP GPT"
 
   gpt ${SNAP_REQUEST} \
     -Pin1=${local_master} \
@@ -97,13 +96,13 @@ function main() {
     -Pout=${out} \
     -p ${TMPDIR}/snap.params 1>&2 || return ${ERR_SNAP} 
 
-  ciop-log "INFO" "(5 of ${num_steps}) Compress results"  
+  ciop-log "INFO" "(6 of ${num_steps}) Compress results"  
   tar -C ${TMPDIR} -czf ${out}.tgz $( basename ${out}).dim $( basename ${out}).data || return ${ERR_COMPRESS}
   ciop-publish -m ${out}.tgz || return ${ERR_PUBLISH}  
  
   rm -fr ${out}.tgz
  
-  ciop-log "INFO" "(6 of ${num_steps}) Convert to geotiff and PNG image formats"
+  ciop-log "INFO" "(7 of ${num_steps}) Convert to geotiff and PNG image formats"
   
   # Convert to GeoTIFF
   for img in $( find ${out}.data -name '*.img' )
@@ -127,7 +126,7 @@ function main() {
  
   done
   
-  ciop-log "INFO" "(7 of ${num_steps}) Clean up" 
+  ciop-log "INFO" "(8 of ${num_steps}) Clean up" 
   # clean-up
   rm -fr ${out}*
   
