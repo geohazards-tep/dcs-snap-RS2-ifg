@@ -70,19 +70,19 @@ function main() {
 
   num_steps=8
 
-  ciop-log "INFO" "(1 of ${num_steps}) Resolve RS2 master online resource"
+  ciop-log "INFO" "(1 of ${num_steps}) Resolve RADARSAT-2 master online resource"
   online_resource="$( opensearch-client ${master} enclosure )"
   [[ -z ${online_resource} ]] && return ${ERR_NO_URL}
 
-  ciop-log "INFO" "(2 of ${num_steps}) Retrieve RS2 master product from ${online_resource}"
+  ciop-log "INFO" "(2 of ${num_steps}) Retrieve RADARSAT-2 master product from ${online_resource}"
   local_master="$( ciop-copy -U -o ${TMPDIR} ${online_resource} )"
   [[ -z ${local_master} ]] && return ${ERR_NO_MASTER} 
 
-  ciop-log "INFO" "(3 of ${num_steps}) Resolve RS2 slave online resource"
+  ciop-log "INFO" "(3 of ${num_steps}) Resolve RADARSAT-2 slave online resource"
   online_resource="$( opensearch-client ${slave} enclosure )"
   [[ -z ${online_resource} ]] && return ${ERR_NO_URL}
 
-  ciop-log "INFO" "(4 of ${num_steps}) Retrieve RS2 slave product from ${online_resource}"
+  ciop-log "INFO" "(4 of ${num_steps}) Retrieve RADARSAT-2 slave product from ${online_resource}"
   local_slave="$( ciop-copy -U -o ${TMPDIR} ${online_resource} )"
   [[ -z ${local_slave} ]] && return ${ERR_NO_SLAVE}
  
