@@ -4,7 +4,7 @@
     <jobTemplate id="snap">
       <streamingExecutable>/application/snap/run</streamingExecutable>
       <defaultParameters>
-        <parameter id="master" title="Master RS2product" abstract="Master RS2 product" scope="runtime" maxOccurs="1">https://catalog.terradue.com//noa-radarsat2/search?uid=RS2_OK63842_PK605869_DK537627_F23F_20160206_042455_HH_HV_SLC</parameter>
+        <parameter id="master" title="Master RADARSAT-2 product" abstract="Master RADARSAT-2 product" scope="runtime" maxOccurs="1">https://catalog.terradue.com//noa-radarsat2/search?uid=RS2_OK63842_PK605869_DK537627_F23F_20160206_042455_HH_HV_SLC</parameter>
         <parameter id="resamplingType" title="Interpolation Method" abstract="Interpolation Method" maxOccurs="1" scope="runtime" type="LiteralData">
           <options>
             <option>BILINEAR_INTERPOLATION</option>
@@ -28,12 +28,12 @@
       </defaultJobconf>
     </jobTemplate>
   </jobTemplates>
-  <workflow id="dcs-snap-RS2-ifg" title="SNAP application" abstract="SNAP application">
+  <workflow id="dcs-snap-RS2-ifg" title="RADARSAT-2 interferogram generation with SNAP" abstract="RADARSAT-2 interferogram generation with SNAP">
     <workflowVersion>1.0</workflowVersion>
     <node id="snap">
       <job id="snap"/>
       <sources>
-        <source scope="runtime" id="slave" title="Slave RS2 product" abstract="Slave RS2 product" refid="string:list" maxOccurs="1">https://catalog.terradue.com//noa-radarsat2/search?uid=RS2_OK63842_PK604606_DK536364_F23F_20160113_042457_HH_HV_SLC</source>
+        <source scope="runtime" id="slave" title="Slave RADARSAT-2 product" abstract="Slave RADARSAT-2 product" refid="string:list" maxOccurs="1">https://catalog.terradue.com//noa-radarsat2/search?uid=RS2_OK63842_PK604606_DK536364_F23F_20160113_042457_HH_HV_SLC</source>
       </sources>
     </node>
   </workflow>
