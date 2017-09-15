@@ -86,7 +86,7 @@ function main() {
   local_slave="$( ciop-copy -U -o ${TMPDIR} ${online_resource} )"
   [[ -z ${local_slave} ]] && return ${ERR_NO_SLAVE}
  
-  out=${local_master}_result
+  out=${TMPDIR}/RS2_IFG
 
   ciop-log "INFO" "(5 of ${num_steps}) Invoke SNAP GPT"
 
